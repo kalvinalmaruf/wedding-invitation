@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const WEDDING_DATE = new Date("2026-10-12T08:00:00").getTime();
 
@@ -35,6 +35,7 @@ function SectionDivider({ label, icon = "♡" }: SectionDividerProps) {
 export default function Home() {
   const [isMusicPlaying, setIsMusicPlaying] = useState(false);
   const [isInvitationOpen, setIsInvitationOpen] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const [timeLeft, setTimeLeft] = useState({
     days: 0,
@@ -162,6 +163,20 @@ export default function Home() {
     return () => clearInterval(timer);
   }, []);
 
+  useEffect(() => {
+    const audio = audioRef.current;
+
+    if (!audio) return;
+
+    if (isMusicPlaying) {
+      audio.play().catch(() => {
+        setIsMusicPlaying(false);
+      });
+    } else {
+      audio.pause();
+    }
+  }, [isMusicPlaying]);
+
   const handleOpenInvitation = () => {
     setIsInvitationOpen(true);
     setIsMusicPlaying(true);
@@ -171,6 +186,9 @@ export default function Home() {
     <main className="min-h-screen overflow-x-hidden bg-[#fff3f8] text-[#5b2338]">
       {/* Background utama */}
       <div className="fixed inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,#ffc2d7_0%,transparent_35%),radial-gradient(circle_at_bottom_right,#ff9ec1_0%,transparent_32%),linear-gradient(180deg,#fff2f7_0%,#ffe1ed_45%,#fff8fb_100%)]" />
+
+      {/* Audio Lokal */}
+      <audio ref={audioRef} src="/music/sempurna.mp3" loop />
 
       {/* Dekorasi Floating */}
       <div className="pointer-events-none fixed inset-0 z-10 overflow-hidden">
@@ -260,19 +278,6 @@ export default function Home() {
       >
         {isMusicPlaying ? "♪ Jeda" : "♪ Musik"}
       </button>
-
-      {/* YouTube Music Embed */}
-      {isMusicPlaying && (
-        <div className="fixed right-4 top-16 z-40 h-20 w-32 overflow-hidden rounded-2xl border border-white/70 bg-white shadow-lg md:right-5 md:top-20 md:h-24 md:w-40">
-          <iframe
-            className="h-full w-full"
-            src="https://www.youtube.com/embed/bx6IPdHxGlI?autoplay=1"
-            title="Sempurna"
-            allow="autoplay; encrypted-media"
-            allowFullScreen
-          />
-        </div>
-      )}
 
       {/* Hero Utama */}
       <section
