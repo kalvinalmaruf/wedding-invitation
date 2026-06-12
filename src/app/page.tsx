@@ -5,6 +5,33 @@ import { useEffect, useState } from "react";
 
 const WEDDING_DATE = new Date("2026-10-12T08:00:00").getTime();
 
+type SectionDividerProps = {
+  label: string;
+  icon?: string;
+};
+
+function SectionDivider({ label, icon = "♡" }: SectionDividerProps) {
+  return (
+    <div className="relative z-20 bg-transparent px-5 py-8 md:py-10">
+      <div className="mx-auto flex max-w-6xl items-center gap-4">
+        <div className="h-px flex-1 bg-gradient-to-r from-transparent via-[#f6a8c3]/80 to-[#f6a8c3]/40" />
+
+        <div className="flex items-center gap-3 rounded-full border border-white/70 bg-white/80 px-5 py-2.5 shadow-xl shadow-[#e9447c]/10 backdrop-blur-xl">
+          <span className="flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-[#ffe4ef] to-[#ffc0d8] text-sm text-[#c83468]">
+            {icon}
+          </span>
+
+          <span className="text-[10px] font-black uppercase tracking-[0.28em] text-[#b83262] md:text-xs">
+            {label}
+          </span>
+        </div>
+
+        <div className="h-px flex-1 bg-gradient-to-l from-transparent via-[#f6a8c3]/80 to-[#f6a8c3]/40" />
+      </div>
+    </div>
+  );
+}
+
 export default function Home() {
   const [isMusicPlaying, setIsMusicPlaying] = useState(false);
   const [isInvitationOpen, setIsInvitationOpen] = useState(false);
@@ -21,58 +48,58 @@ export default function Home() {
       src: "/images/foto-1.jpg",
       title: "Sweet Beginning",
       className: "md:col-span-2 md:row-span-2",
-      imageClassName: "h-[320px] md:h-full",
+      imageClassName: "h-[330px] md:h-full",
     },
     {
       src: "/images/foto-2.jpg",
       title: "Soft Smile",
       className: "",
-      imageClassName: "h-[220px] md:h-[260px]",
+      imageClassName: "h-[230px] md:h-[260px]",
     },
     {
       src: "/images/foto-3.jpg",
       title: "Little Forever",
       className: "",
-      imageClassName: "h-[220px] md:h-[260px]",
+      imageClassName: "h-[230px] md:h-[260px]",
     },
     {
       src: "/images/foto-4.jpg",
       title: "Warm Memories",
       className: "",
-      imageClassName: "h-[220px] md:h-[260px]",
+      imageClassName: "h-[230px] md:h-[260px]",
     },
     {
       src: "/images/foto-5.jpg",
       title: "Together",
       className: "",
-      imageClassName: "h-[220px] md:h-[260px]",
+      imageClassName: "h-[230px] md:h-[260px]",
     },
   ];
 
   const floatingDecorations = [
     {
       icon: "♡",
-      className: "left-[8%] top-[14%] text-[#f19ab2]",
+      className: "left-[7%] top-[13%] text-[#f4729b]",
       delay: "0s",
     },
     {
       icon: "✦",
-      className: "right-[10%] top-[18%] text-[#f5b3c5]",
+      className: "right-[9%] top-[18%] text-[#fb9fbd]",
       delay: "0.7s",
     },
     {
       icon: "♡",
-      className: "left-[12%] bottom-[20%] text-[#f7c2d0]",
+      className: "left-[11%] bottom-[20%] text-[#fbb6ce]",
       delay: "1.2s",
     },
     {
       icon: "✧",
-      className: "right-[14%] bottom-[24%] text-[#e78da7]",
+      className: "right-[14%] bottom-[24%] text-[#f77faa]",
       delay: "1.8s",
     },
     {
       icon: "♡",
-      className: "left-[45%] top-[8%] text-[#f8cad6]",
+      className: "left-[45%] top-[8%] text-[#ffd0df]",
       delay: "2.4s",
     },
   ];
@@ -98,6 +125,14 @@ export default function Home() {
       description:
         "Kini kami ingin berbagi kebahagiaan ini bersama keluarga, sahabat, dan orang-orang tercinta.",
     },
+  ];
+
+  const navigationItems = [
+    { href: "#home", label: "Home", icon: "♡" },
+    { href: "#story", label: "Story", icon: "✦" },
+    { href: "#acara", label: "Acara", icon: "☼" },
+    { href: "#lokasi", label: "Maps", icon: "⌖" },
+    { href: "#galeri", label: "Foto", icon: "▧" },
   ];
 
   useEffect(() => {
@@ -133,13 +168,16 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen overflow-x-hidden bg-gradient-to-b from-[#ffe1eb] via-[#ffd3e2] to-[#fff5f8] text-[#5b2f3f]">
+    <main className="min-h-screen overflow-x-hidden bg-[#fff3f8] text-[#5b2338]">
+      {/* Background utama */}
+      <div className="fixed inset-0 -z-10 bg-[radial-gradient(circle_at_top_left,#ffc2d7_0%,transparent_35%),radial-gradient(circle_at_bottom_right,#ff9ec1_0%,transparent_32%),linear-gradient(180deg,#fff2f7_0%,#ffe1ed_45%,#fff8fb_100%)]" />
+
       {/* Dekorasi Floating */}
       <div className="pointer-events-none fixed inset-0 z-10 overflow-hidden">
         {floatingDecorations.map((item, index) => (
           <span
             key={index}
-            className={`absolute animate-bounce text-2xl opacity-55 md:text-4xl ${item.className}`}
+            className={`absolute animate-bounce text-2xl opacity-60 md:text-4xl ${item.className}`}
             style={{
               animationDelay: item.delay,
               animationDuration: "4.5s",
@@ -152,30 +190,32 @@ export default function Home() {
 
       {/* Cover Pembuka */}
       {!isInvitationOpen && (
-        <section className="fixed inset-0 z-[999] flex min-h-screen items-center justify-center overflow-hidden bg-gradient-to-b from-[#ffc9dc] via-[#ffe1eb] to-[#fff7fa] px-5 py-8 text-center">
-          <div className="absolute -left-24 -top-24 h-72 w-72 rounded-full bg-[#f47fa3]/40 blur-3xl md:h-80 md:w-80" />
-          <div className="absolute right-0 top-32 h-60 w-60 rounded-full bg-[#ffb3ca]/45 blur-3xl md:h-72 md:w-72" />
-          <div className="absolute -bottom-24 left-20 h-72 w-72 rounded-full bg-[#f8a9c0]/45 blur-3xl md:h-80 md:w-80" />
+        <section className="fixed inset-0 z-[999] flex min-h-screen items-center justify-center overflow-hidden bg-[radial-gradient(circle_at_top,#ffbed5_0%,transparent_35%),linear-gradient(180deg,#ffd5e5_0%,#fff3f8_55%,#ffffff_100%)] px-5 py-8 text-center">
+          <div className="absolute -left-24 -top-24 h-72 w-72 rounded-full bg-[#ff75a4]/35 blur-3xl md:h-96 md:w-96" />
+          <div className="absolute right-0 top-32 h-60 w-60 rounded-full bg-[#ffb4ce]/55 blur-3xl md:h-80 md:w-80" />
+          <div className="absolute -bottom-24 left-20 h-72 w-72 rounded-full bg-[#ff8db6]/40 blur-3xl md:h-96 md:w-96" />
 
-          <div className="relative z-10 w-full max-w-sm rounded-[2rem] border border-[#ffd8e5] bg-white/75 p-6 shadow-2xl shadow-[#f49ab5]/35 backdrop-blur md:max-w-md md:rounded-[2.5rem] md:p-8">
-            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.28em] text-[#b84c6f] md:text-sm md:tracking-[0.35em]">
+          <div className="relative z-10 w-full max-w-sm overflow-hidden rounded-[2.2rem] border border-white/70 bg-white/70 p-6 shadow-2xl shadow-[#ed6f9e]/25 backdrop-blur-xl md:max-w-md md:p-8">
+            <div className="absolute left-0 top-0 h-2 w-full bg-gradient-to-r from-[#ff8ab3] via-[#f65f96] to-[#ffc1d6]" />
+
+            <p className="mb-4 text-xs font-bold uppercase tracking-[0.3em] text-[#b83262] md:text-sm">
               Wedding Invitation
             </p>
 
-            <div className="mx-auto mb-5 flex h-20 w-20 items-center justify-center rounded-full border-4 border-white bg-[#ffe4ee] text-4xl text-[#d85d84] shadow-lg shadow-[#f8abc1]/40 md:mb-6 md:h-24 md:w-24 md:text-5xl">
+            <div className="mx-auto mb-5 flex h-24 w-24 items-center justify-center rounded-full border-[6px] border-white bg-gradient-to-br from-[#ffe4ef] to-[#ffc0d8] text-5xl text-[#d73872] shadow-xl shadow-[#ff9fbe]/40 md:mb-6 md:h-28 md:w-28 md:text-6xl">
               ♡
             </div>
 
-            <h1 className="mb-4 text-3xl font-bold leading-tight text-[#653246] md:text-4xl">
-              Kalvin <span className="text-[#d85d84]">&</span> Naeya
+            <h1 className="mb-3 text-4xl font-black leading-tight tracking-tight text-[#64213b] md:text-5xl">
+              Kalvin <span className="text-[#d73872]">&</span> Naeya
             </h1>
 
-            <p className="mb-5 text-sm text-[#7d4a5d] md:mb-6">
+            <p className="mb-6 text-sm font-medium text-[#8b4a62]">
               Kepada Yth. Bapak/Ibu/Saudara/i
             </p>
 
-            <div className="mb-6 rounded-3xl border border-[#ffd2e1] bg-white/70 p-5 md:mb-8">
-              <p className="text-sm leading-relaxed text-[#7d4a5d]">
+            <div className="mb-7 rounded-3xl border border-[#ffd0df] bg-white/75 p-5 shadow-inner">
+              <p className="text-sm leading-relaxed text-[#7b3f56]">
                 Tanpa mengurangi rasa hormat, kami mengundang Anda untuk hadir
                 dan memberikan doa restu pada hari bahagia kami.
               </p>
@@ -183,29 +223,47 @@ export default function Home() {
 
             <button
               onClick={handleOpenInvitation}
-              className="w-full rounded-full bg-[#d85d84] px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-[#f8abc1]/60 transition hover:bg-[#bf4d72] md:py-4"
+              className="w-full rounded-full bg-gradient-to-r from-[#e9447c] to-[#f76fa0] px-8 py-4 text-sm font-bold text-white shadow-xl shadow-[#ff8db6]/50 transition duration-300 hover:-translate-y-0.5 hover:shadow-2xl"
             >
               Buka Undangan
             </button>
 
-            <p className="mt-5 text-xs text-[#b84c6f] md:mt-6">
-              Klik tombol untuk membuka undangan ♡
+            <p className="mt-5 text-xs font-medium text-[#b83262]">
+              Tap untuk membuka undangan ♡
             </p>
           </div>
         </section>
       )}
 
+      {/* Bottom Navigation Mobile */}
+      {isInvitationOpen && (
+        <nav className="fixed bottom-4 left-1/2 z-50 w-[92%] max-w-md -translate-x-1/2 rounded-full border border-white/70 bg-white/80 px-3 py-2 shadow-2xl shadow-[#e9447c]/20 backdrop-blur-xl md:hidden">
+          <div className="flex items-center justify-between">
+            {navigationItems.map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                className="flex min-w-0 flex-1 flex-col items-center justify-center gap-0.5 rounded-full px-2 py-1.5 text-[10px] font-semibold text-[#8b4a62] transition hover:bg-[#ffe4ef] hover:text-[#d73872]"
+              >
+                <span className="text-sm">{item.icon}</span>
+                <span>{item.label}</span>
+              </a>
+            ))}
+          </div>
+        </nav>
+      )}
+
       {/* Tombol Musik */}
       <button
         onClick={() => setIsMusicPlaying(!isMusicPlaying)}
-        className="fixed bottom-4 right-4 z-50 rounded-full bg-[#d85d84] px-4 py-2.5 text-xs font-semibold text-white shadow-lg shadow-[#f8abc1]/60 transition hover:bg-[#bf4d72] md:bottom-5 md:right-5 md:px-5 md:py-3 md:text-sm"
+        className="fixed right-4 top-4 z-50 rounded-full border border-white/70 bg-white/80 px-4 py-2.5 text-xs font-bold text-[#c83468] shadow-lg shadow-[#e9447c]/20 backdrop-blur-xl transition hover:bg-[#ffe4ef] md:right-5 md:top-5 md:px-5 md:py-3 md:text-sm"
       >
-        {isMusicPlaying ? "Jeda Musik" : "Putar Musik"}
+        {isMusicPlaying ? "♪ Jeda" : "♪ Musik"}
       </button>
 
       {/* YouTube Music Embed */}
       {isMusicPlaying && (
-        <div className="fixed bottom-16 right-4 z-40 h-20 w-32 overflow-hidden rounded-xl shadow-lg md:bottom-20 md:right-5 md:h-24 md:w-40">
+        <div className="fixed right-4 top-16 z-40 h-20 w-32 overflow-hidden rounded-2xl border border-white/70 bg-white shadow-lg md:right-5 md:top-20 md:h-24 md:w-40">
           <iframe
             className="h-full w-full"
             src="https://www.youtube.com/embed/bx6IPdHxGlI?autoplay=1"
@@ -217,77 +275,98 @@ export default function Home() {
       )}
 
       {/* Hero Utama */}
-      <section className="relative flex min-h-screen items-center justify-center overflow-hidden px-5 py-20 text-center md:px-6">
-        <div className="absolute -left-24 -top-24 h-72 w-72 rounded-full bg-[#f47fa3]/35 blur-3xl md:h-80 md:w-80" />
-        <div className="absolute right-10 top-28 h-48 w-48 rounded-full bg-[#ffb3ca]/45 blur-3xl md:h-56 md:w-56" />
-        <div className="absolute -bottom-24 -right-24 h-72 w-72 rounded-full bg-[#f8a9c0]/40 blur-3xl md:h-80 md:w-80" />
+      <section
+        id="home"
+        className="relative flex min-h-screen items-center justify-center overflow-hidden px-5 pb-20 pt-24 text-center md:px-6 md:py-24"
+      >
+        <div className="absolute left-1/2 top-24 h-72 w-72 -translate-x-1/2 rounded-full bg-[#ff8db6]/35 blur-3xl md:h-[34rem] md:w-[34rem]" />
+        <div className="absolute -left-24 top-20 h-80 w-80 rounded-full bg-[#ffbfd5]/50 blur-3xl" />
+        <div className="absolute -right-24 bottom-20 h-80 w-80 rounded-full bg-[#ff77a7]/30 blur-3xl" />
 
-        <div className="relative z-10 w-full max-w-2xl">
-          <p className="mb-4 text-xs font-semibold uppercase tracking-[0.28em] text-[#b84c6f] md:text-sm md:tracking-[0.35em]">
-            A Sweet Beginning Of Forever
-          </p>
-
-          <h1 className="mb-5 text-4xl font-bold leading-tight text-[#653246] sm:text-5xl md:mb-6 md:text-7xl">
-            Kalvin <span className="text-[#d85d84]">&</span> Naeya
-          </h1>
-
-          <p className="mx-auto mb-8 max-w-xl text-base leading-relaxed text-[#7d4a5d] md:text-xl">
-            Dengan penuh rasa syukur, kami mengundang Bapak/Ibu/Saudara/i untuk
-            hadir dan memberikan doa restu pada hari bahagia kami.
-          </p>
-
-          <div className="mb-8 rounded-[1.7rem] border border-[#ffd2e1] bg-white/70 p-5 shadow-xl shadow-[#f8abc1]/30 backdrop-blur md:mb-10 md:rounded-[2rem] md:p-6">
-            <p className="text-sm font-medium text-[#b84c6f]">Mempelai Pria</p>
-            <h2 className="mt-1 text-xl font-semibold text-[#653246] md:text-2xl">
-              Kalvin Al Ma&apos;ruf
-            </h2>
-            <p className="mt-2 text-sm leading-relaxed text-[#7d4a5d]">
-              Putra pertama dari Bapak Harun dan Ibu Erni Eka Sari
+        <div className="relative z-10 mx-auto w-full max-w-5xl">
+          <div className="mx-auto max-w-4xl rounded-[2.5rem] border border-white/70 bg-white/50 px-5 py-10 shadow-2xl shadow-[#e9447c]/10 backdrop-blur-xl sm:px-8 md:px-12 md:py-14">
+            <p className="mb-5 inline-flex rounded-full border border-[#ffc9dc] bg-white/75 px-4 py-2 text-[10px] font-black uppercase tracking-[0.24em] text-[#b83262] shadow-sm backdrop-blur sm:text-xs md:tracking-[0.28em]">
+              A Sweet Beginning Of Forever
             </p>
 
-            <div className="my-5 text-3xl text-[#d85d84]">♡</div>
+            <h1 className="mx-auto mb-6 max-w-4xl text-5xl font-black leading-[0.95] tracking-tight text-[#64213b] sm:text-6xl md:text-8xl">
+              Kalvin
+              <span className="mx-2 text-[#e9447c] sm:mx-4">&</span>
+              Naeya
+            </h1>
 
-            <p className="text-sm font-medium text-[#b84c6f]">
-              Mempelai Wanita
+            <p className="mx-auto mb-8 max-w-2xl text-sm leading-relaxed text-[#7b3f56] sm:text-base md:text-lg">
+              Dengan penuh rasa syukur, kami mengundang Bapak/Ibu/Saudara/i
+              untuk hadir dan memberikan doa restu pada hari bahagia kami.
             </p>
-            <h2 className="mt-1 text-xl font-semibold text-[#653246] md:text-2xl">
-              Naeya Ashyfa Ocwita Ningrum
-            </h2>
-            <p className="mt-2 text-sm leading-relaxed text-[#7d4a5d]">
-              Putri pertama dari Bapak Wiyono dan Ibu Nita Agustina
-            </p>
+
+            <div className="mx-auto grid max-w-3xl gap-4 sm:grid-cols-2">
+              <div className="rounded-[1.7rem] border border-[#ffd0df] bg-white/75 p-5 text-left shadow-xl shadow-[#e9447c]/10 backdrop-blur">
+                <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#b83262]">
+                  Mempelai Pria
+                </p>
+                <h2 className="mt-2 text-xl font-black text-[#64213b]">
+                  Kalvin Al Ma&apos;ruf
+                </h2>
+                <p className="mt-2 text-sm leading-relaxed text-[#8b4a62]">
+                  Putra pertama dari Bapak Harun dan Ibu Erni Eka Sari
+                </p>
+              </div>
+
+              <div className="rounded-[1.7rem] border border-[#ffd0df] bg-white/75 p-5 text-left shadow-xl shadow-[#e9447c]/10 backdrop-blur">
+                <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#b83262]">
+                  Mempelai Wanita
+                </p>
+                <h2 className="mt-2 text-xl font-black text-[#64213b]">
+                  Naeya Ashyfa Ocwita Ningrum
+                </h2>
+                <p className="mt-2 text-sm leading-relaxed text-[#8b4a62]">
+                  Putri pertama dari Bapak Wiyono dan Ibu Nita Agustina
+                </p>
+              </div>
+            </div>
+
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">
+              <a
+                href="#acara"
+                className="rounded-full bg-gradient-to-r from-[#e9447c] to-[#f76fa0] px-7 py-3.5 text-sm font-bold text-white shadow-xl shadow-[#ff8db6]/40 transition hover:-translate-y-0.5"
+              >
+                Lihat Hari Bahagia
+              </a>
+
+              <a
+                href="#galeri"
+                className="rounded-full border border-[#ffc9dc] bg-white/75 px-7 py-3.5 text-sm font-bold text-[#c83468] shadow-lg shadow-[#e9447c]/10 backdrop-blur transition hover:bg-[#ffe4ef]"
+              >
+                Lihat Galeri
+              </a>
+            </div>
           </div>
-
-          <a
-            href="#acara"
-            className="inline-flex rounded-full bg-[#d85d84] px-7 py-3 text-sm font-semibold text-white shadow-lg shadow-[#f8abc1]/60 transition hover:bg-[#bf4d72] md:px-8"
-          >
-            Lihat Hari Bahagia
-          </a>
         </div>
       </section>
 
+      <SectionDivider label="Counting Moment" icon="✦" />
+
       {/* Countdown */}
-      <section className="relative overflow-hidden bg-[#fff5f8] px-5 py-16 md:px-6 md:py-24">
-        <div className="absolute -left-20 top-10 h-60 w-60 rounded-full bg-[#ffb8cc]/45 blur-3xl md:h-72 md:w-72" />
-        <div className="absolute -right-20 bottom-10 h-60 w-60 rounded-full bg-[#ffcddd]/50 blur-3xl md:h-72 md:w-72" />
+      <section className="relative overflow-hidden px-5 py-14 md:px-6 md:py-20">
+        <div className="mx-auto max-w-6xl rounded-[2.5rem] border border-white/70 bg-white/55 p-6 shadow-2xl shadow-[#e9447c]/10 backdrop-blur-xl md:p-10">
+          <div className="mx-auto max-w-3xl text-center">
+            <p className="mb-3 text-xs font-bold uppercase tracking-[0.28em] text-[#b83262] md:text-sm">
+              Counting Every Sweet Moment
+            </p>
 
-        <div className="relative z-10 mx-auto max-w-5xl text-center">
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.28em] text-[#b84c6f] md:text-sm md:tracking-[0.35em]">
-            Counting Every Sweet Moment
-          </p>
+            <h2 className="mb-4 text-3xl font-black text-[#64213b] md:text-5xl">
+              Menuju Hari Bahagia
+            </h2>
 
-          <h2 className="mb-4 text-3xl font-bold text-[#653246] md:text-5xl">
-            Menuju Hari Bahagia
-          </h2>
+            <p className="mx-auto mb-10 max-w-2xl text-sm leading-relaxed text-[#7b3f56] md:text-base">
+              Hari demi hari kami nantikan dengan penuh rasa syukur. Semoga
+              langkah kami menuju pernikahan selalu diberkahi dan dipenuhi
+              kebahagiaan.
+            </p>
+          </div>
 
-          <p className="mx-auto mb-10 max-w-2xl text-sm leading-relaxed text-[#7d4a5d] md:mb-12 md:text-base">
-            Hari demi hari kami nantikan dengan penuh rasa syukur. Semoga
-            langkah kami menuju pernikahan selalu diberkahi dan dipenuhi
-            kebahagiaan.
-          </p>
-
-          <div className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-4">
+          <div className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-5">
             {[
               { value: timeLeft.days, label: "Hari" },
               { value: timeLeft.hours, label: "Jam" },
@@ -296,164 +375,170 @@ export default function Home() {
             ].map((item) => (
               <div
                 key={item.label}
-                className="rounded-[1.5rem] border border-[#ffd2e1] bg-white/70 p-5 shadow-lg shadow-[#f8abc1]/25 md:rounded-[2rem] md:p-6"
+                className="rounded-[2rem] border border-[#ffd0df] bg-gradient-to-br from-white to-[#ffeaf1] p-5 text-center shadow-xl shadow-[#e9447c]/10 md:p-7"
               >
-                <p className="text-3xl font-bold text-[#d85d84] md:text-5xl">
+                <p className="text-4xl font-black text-[#e9447c] md:text-6xl">
                   {item.value}
                 </p>
-                <p className="mt-2 text-xs font-medium text-[#7d4a5d] md:text-sm">
+                <p className="mt-2 text-xs font-bold uppercase tracking-[0.2em] text-[#8b4a62] md:text-sm">
                   {item.label}
                 </p>
               </div>
             ))}
           </div>
 
-          <div className="mx-auto mt-8 max-w-xl rounded-[1.7rem] border border-[#ffd2e1] bg-white/70 p-5 shadow-lg shadow-[#f8abc1]/25 md:mt-10 md:rounded-[2rem] md:p-6">
-            <p className="text-base font-semibold text-[#653246] md:text-lg">
+          <div className="mx-auto mt-8 max-w-xl rounded-[2rem] border border-[#ffd0df] bg-white/70 p-5 text-center shadow-lg shadow-[#e9447c]/10">
+            <p className="text-lg font-black text-[#64213b]">
               12 Oktober 2026
             </p>
-            <p className="mt-2 text-sm leading-relaxed text-[#7d4a5d]">
+            <p className="mt-2 text-sm leading-relaxed text-[#7b3f56]">
               Akad nikah pukul 08.00 WIB dan resepsi pukul 10.00 WIB.
             </p>
           </div>
         </div>
       </section>
 
+      <SectionDivider label="Love Story" icon="♡" />
+
       {/* Love Story */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-[#fff5f8] via-[#ffe1eb] to-[#fff5f8] px-5 py-16 md:px-6 md:py-24">
-        <div className="absolute left-0 top-20 h-60 w-60 rounded-full bg-[#f47fa3]/25 blur-3xl md:h-72 md:w-72" />
-        <div className="absolute bottom-10 right-0 h-60 w-60 rounded-full bg-[#ffb3ca]/35 blur-3xl md:h-72 md:w-72" />
+      <section
+        id="story"
+        className="relative overflow-hidden px-5 py-14 md:px-6 md:py-20"
+      >
+        <div className="absolute left-0 top-20 h-72 w-72 rounded-full bg-[#ff8db6]/25 blur-3xl" />
+        <div className="absolute bottom-10 right-0 h-72 w-72 rounded-full bg-[#ffc0d8]/35 blur-3xl" />
 
-        <div className="relative z-10 mx-auto max-w-5xl text-center">
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.28em] text-[#b84c6f] md:text-sm md:tracking-[0.35em]">
-            Our Love Story
-          </p>
+        <div className="relative z-10 mx-auto max-w-6xl">
+          <div className="mx-auto max-w-3xl text-center">
+            <p className="mb-3 text-xs font-bold uppercase tracking-[0.28em] text-[#b83262] md:text-sm">
+              Our Love Story
+            </p>
 
-          <h2 className="mb-4 text-3xl font-bold text-[#653246] md:text-5xl">
-            Cerita Cinta Kami
-          </h2>
+            <h2 className="mb-4 text-3xl font-black text-[#64213b] md:text-5xl">
+              Cerita Cinta Kami
+            </h2>
 
-          <p className="mx-auto mb-10 max-w-2xl text-sm leading-relaxed text-[#7d4a5d] md:mb-12 md:text-base">
-            Setiap perjalanan memiliki cerita. Inilah sedikit kisah manis yang
-            membawa kami sampai pada hari bahagia ini.
-          </p>
+            <p className="mx-auto mb-10 max-w-2xl text-sm leading-relaxed text-[#7b3f56] md:text-base">
+              Setiap perjalanan memiliki cerita. Inilah sedikit kisah manis
+              yang membawa kami sampai pada hari bahagia ini.
+            </p>
+          </div>
 
-          <div className="mx-auto grid max-w-4xl gap-5 md:grid-cols-2">
+          <div className="grid gap-5 md:grid-cols-4">
             {loveStories.map((story, index) => (
               <div
                 key={story.title}
-                className="group relative overflow-hidden rounded-[1.7rem] border border-[#ffd2e1] bg-white/70 p-6 text-left shadow-lg shadow-[#f8abc1]/25 backdrop-blur transition hover:-translate-y-1 hover:shadow-xl hover:shadow-[#f8abc1]/40 md:rounded-[2rem]"
+                className="group relative overflow-hidden rounded-[2rem] border border-white/70 bg-white/70 p-6 shadow-xl shadow-[#e9447c]/10 backdrop-blur-xl transition duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-[#e9447c]/20"
               >
-                <div className="absolute -right-8 -top-8 flex h-24 w-24 items-center justify-center rounded-full bg-[#ffe4ee] text-4xl text-[#f5a6bd] transition group-hover:scale-110">
+                <div className="absolute -right-8 -top-8 flex h-24 w-24 items-center justify-center rounded-full bg-[#ffe4ef] text-4xl text-[#ff9fbe] transition group-hover:scale-110">
                   ♡
                 </div>
 
-                <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-full bg-[#d85d84] text-sm font-bold text-white shadow-lg shadow-[#f8abc1]/50">
+                <div className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-[#e9447c] to-[#ff8db6] text-sm font-black text-white shadow-lg shadow-[#ff9fbe]/50">
                   {String(index + 1).padStart(2, "0")}
                 </div>
 
-                <h3 className="mb-3 text-xl font-semibold text-[#653246]">
+                <h3 className="mb-3 text-xl font-black text-[#64213b]">
                   {story.title}
                 </h3>
 
-                <p className="text-sm leading-relaxed text-[#7d4a5d]">
+                <p className="text-sm leading-relaxed text-[#7b3f56]">
                   {story.description}
                 </p>
               </div>
             ))}
           </div>
-
-          <div className="mx-auto mt-10 max-w-2xl rounded-[1.7rem] border border-[#ffd2e1] bg-white/70 p-5 shadow-lg shadow-[#f8abc1]/25 backdrop-blur md:rounded-[2rem] md:p-6">
-            <p className="text-base font-semibold leading-relaxed text-[#653246] md:text-lg">
-              “Bukan tentang seberapa cepat kisah ini dimulai, tetapi tentang
-              bagaimana kami saling memilih untuk terus berjalan bersama.”
-            </p>
-            <p className="mt-3 text-sm text-[#b84c6f]">Our journey ♡</p>
-          </div>
         </div>
       </section>
+
+      <SectionDivider label="Special Day" icon="☼" />
 
       {/* Acara */}
-      <section id="acara" className="bg-[#fff5f8] px-5 py-16 md:px-6 md:py-24">
-        <div className="mx-auto max-w-4xl text-center">
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.28em] text-[#b84c6f] md:text-sm md:tracking-[0.35em]">
-            Our Special Day
-          </p>
+      <section id="acara" className="relative px-5 py-14 md:px-6 md:py-20">
+        <div className="mx-auto max-w-6xl">
+          <div className="mx-auto max-w-3xl text-center">
+            <p className="mb-3 text-xs font-bold uppercase tracking-[0.28em] text-[#b83262] md:text-sm">
+              Our Special Day
+            </p>
 
-          <h2 className="mb-8 text-3xl font-bold text-[#653246] md:mb-10 md:text-5xl">
-            Hari Bahagia Kami
-          </h2>
+            <h2 className="mb-4 text-3xl font-black text-[#64213b] md:text-5xl">
+              Hari Bahagia Kami
+            </h2>
 
-          <div className="grid gap-5 md:grid-cols-2 md:gap-6">
-            <div className="rounded-[1.7rem] border border-[#ffd2e1] bg-white/70 p-6 shadow-lg shadow-[#f8abc1]/25 md:rounded-[2rem] md:p-8">
-              <h3 className="mb-4 text-xl font-semibold text-[#d85d84] md:text-2xl">
-                Akad Nikah
-              </h3>
-              <p className="text-sm text-[#7d4a5d] md:text-base">
-                Minggu, 12 Oktober 2026
-              </p>
-              <p className="mt-2 text-sm text-[#7d4a5d] md:text-base">
-                08.00 WIB - Selesai
-              </p>
-              <p className="mt-4 text-sm text-[#7d4a5d] md:text-base">
-                Kediaman mempelai wanita
-              </p>
-            </div>
-
-            <div className="rounded-[1.7rem] border border-[#ffd2e1] bg-white/70 p-6 shadow-lg shadow-[#f8abc1]/25 md:rounded-[2rem] md:p-8">
-              <h3 className="mb-4 text-xl font-semibold text-[#d85d84] md:text-2xl">
-                Resepsi
-              </h3>
-              <p className="text-sm text-[#7d4a5d] md:text-base">
-                Minggu, 12 Oktober 2026
-              </p>
-              <p className="mt-2 text-sm text-[#7d4a5d] md:text-base">
-                10.00 WIB - Selesai
-              </p>
-              <p className="mt-4 text-sm text-[#7d4a5d] md:text-base">
-                Kediaman mempelai wanita
-              </p>
-            </div>
+            <p className="mx-auto mb-10 max-w-2xl text-sm leading-relaxed text-[#7b3f56] md:text-base">
+              Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila
+              Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu.
+            </p>
           </div>
 
-          <p className="mx-auto mt-10 max-w-2xl text-sm leading-relaxed text-[#7d4a5d] md:mt-12 md:text-base">
-            Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila
-            Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa restu.
-          </p>
+          <div className="grid gap-5 md:grid-cols-2">
+            <div className="rounded-[2.2rem] border border-white/70 bg-white/70 p-7 shadow-2xl shadow-[#e9447c]/10 backdrop-blur-xl">
+              <div className="mb-5 inline-flex rounded-full bg-[#ffe4ef] px-4 py-2 text-sm font-bold text-[#c83468]">
+                Akad Nikah
+              </div>
+
+              <h3 className="mb-4 text-3xl font-black text-[#64213b]">
+                Minggu, 12 Oktober 2026
+              </h3>
+
+              <div className="space-y-3 text-sm leading-relaxed text-[#7b3f56] md:text-base">
+                <p>08.00 WIB - Selesai</p>
+                <p>Kediaman mempelai wanita</p>
+              </div>
+            </div>
+
+            <div className="rounded-[2.2rem] border border-white/70 bg-white/70 p-7 shadow-2xl shadow-[#e9447c]/10 backdrop-blur-xl">
+              <div className="mb-5 inline-flex rounded-full bg-[#ffe4ef] px-4 py-2 text-sm font-bold text-[#c83468]">
+                Resepsi
+              </div>
+
+              <h3 className="mb-4 text-3xl font-black text-[#64213b]">
+                Minggu, 12 Oktober 2026
+              </h3>
+
+              <div className="space-y-3 text-sm leading-relaxed text-[#7b3f56] md:text-base">
+                <p>10.00 WIB - Selesai</p>
+                <p>Kediaman mempelai wanita</p>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
+      <SectionDivider label="Location" icon="⌖" />
+
       {/* Lokasi Acara */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-[#fff5f8] via-[#ffe1eb] to-[#ffddea] px-5 py-16 md:px-6 md:py-24">
-        <div className="absolute -left-20 top-10 h-60 w-60 rounded-full bg-[#f47fa3]/25 blur-3xl md:h-72 md:w-72" />
-        <div className="absolute -right-20 bottom-10 h-60 w-60 rounded-full bg-[#ffb3ca]/35 blur-3xl md:h-72 md:w-72" />
+      <section
+        id="lokasi"
+        className="relative overflow-hidden px-5 py-14 md:px-6 md:py-20"
+      >
+        <div className="absolute -left-20 top-10 h-72 w-72 rounded-full bg-[#ff8db6]/25 blur-3xl" />
+        <div className="absolute -right-20 bottom-10 h-72 w-72 rounded-full bg-[#ffc0d8]/35 blur-3xl" />
 
         <div className="relative z-10 mx-auto max-w-5xl text-center">
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.28em] text-[#b84c6f] md:text-sm md:tracking-[0.35em]">
+          <p className="mb-3 text-xs font-bold uppercase tracking-[0.28em] text-[#b83262] md:text-sm">
             Find Our Happy Place
           </p>
 
-          <h2 className="mb-4 text-3xl font-bold text-[#653246] md:text-5xl">
+          <h2 className="mb-4 text-3xl font-black text-[#64213b] md:text-5xl">
             Tempat Bahagia Ini Dimulai
           </h2>
 
-          <p className="mx-auto mb-8 max-w-2xl text-sm leading-relaxed text-[#7d4a5d] md:mb-10 md:text-base">
+          <p className="mx-auto mb-10 max-w-2xl text-sm leading-relaxed text-[#7b3f56] md:text-base">
             Dengan penuh kebahagiaan, kami menantikan kehadiran
             Bapak/Ibu/Saudara/i di lokasi acara pernikahan kami.
           </p>
 
-          <div className="mx-auto max-w-3xl rounded-[1.7rem] border border-[#ffd2e1] bg-white/70 p-5 shadow-xl shadow-[#f8abc1]/25 backdrop-blur md:rounded-[2rem] md:p-6">
-            <div className="mb-5 flex justify-center md:mb-6">
-              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#ffe4ee] text-3xl shadow-lg shadow-[#f8abc1]/30 md:h-20 md:w-20 md:text-4xl">
-                📍
-              </div>
+          <div className="mx-auto max-w-3xl rounded-[2.4rem] border border-white/70 bg-white/70 p-7 shadow-2xl shadow-[#e9447c]/10 backdrop-blur-xl">
+            <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-[1.7rem] bg-gradient-to-br from-[#ffe4ef] to-[#ffc0d8] text-4xl shadow-xl shadow-[#ff9fbe]/30">
+              📍
             </div>
 
-            <h3 className="mb-3 text-xl font-semibold text-[#d85d84] md:text-2xl">
+            <h3 className="mb-3 text-2xl font-black text-[#64213b]">
               Kediaman Mempelai Wanita
             </h3>
 
-            <p className="mx-auto mb-7 max-w-xl text-sm leading-relaxed text-[#7d4a5d] md:mb-8">
+            <p className="mx-auto mb-7 max-w-xl text-sm leading-relaxed text-[#7b3f56] md:text-base">
               Silakan klik tombol di bawah ini untuk melihat lokasi acara
               melalui Google Maps.
             </p>
@@ -462,7 +547,7 @@ export default function Home() {
               href="https://maps.app.goo.gl/BRL4BmncR7mvxUvY9"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex rounded-full bg-[#d85d84] px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-[#f8abc1]/60 transition hover:bg-[#bf4d72] md:px-8 md:py-4"
+              className="inline-flex rounded-full bg-gradient-to-r from-[#e9447c] to-[#f76fa0] px-8 py-4 text-sm font-bold text-white shadow-xl shadow-[#ff8db6]/40 transition hover:-translate-y-0.5"
             >
               Buka Google Maps
             </a>
@@ -470,30 +555,35 @@ export default function Home() {
         </div>
       </section>
 
+      <SectionDivider label="Sweet Memories" icon="▧" />
+
       {/* Galeri Foto */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-[#ffddea] via-[#ffeaf1] to-[#fff7fa] px-5 py-16 md:px-6 md:py-24">
-        <div className="absolute left-0 top-20 h-60 w-60 rounded-full bg-[#f47fa3]/25 blur-3xl md:h-72 md:w-72" />
-        <div className="absolute bottom-10 right-0 h-60 w-60 rounded-full bg-[#ffb3ca]/35 blur-3xl md:h-72 md:w-72" />
+      <section
+        id="galeri"
+        className="relative overflow-hidden px-5 pb-28 pt-14 md:px-6 md:pb-24 md:pt-20"
+      >
+        <div className="absolute left-0 top-20 h-72 w-72 rounded-full bg-[#ff8db6]/25 blur-3xl" />
+        <div className="absolute bottom-10 right-0 h-72 w-72 rounded-full bg-[#ffc0d8]/35 blur-3xl" />
 
         <div className="relative z-10 mx-auto max-w-6xl text-center">
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.28em] text-[#b84c6f] md:text-sm md:tracking-[0.35em]">
+          <p className="mb-3 text-xs font-bold uppercase tracking-[0.28em] text-[#b83262] md:text-sm">
             Sweet Memories
           </p>
 
-          <h2 className="mb-4 text-3xl font-bold text-[#653246] md:text-5xl">
+          <h2 className="mb-4 text-3xl font-black text-[#64213b] md:text-5xl">
             Cerita Dalam Foto
           </h2>
 
-          <p className="mx-auto mb-10 max-w-2xl text-sm leading-relaxed text-[#7d4a5d] md:mb-12 md:text-base">
+          <p className="mx-auto mb-10 max-w-2xl text-sm leading-relaxed text-[#7b3f56] md:text-base">
             Beberapa momen manis yang menjadi bagian dari perjalanan cinta
             Kalvin dan Naeya.
           </p>
 
-          <div className="grid gap-4 sm:grid-cols-2 md:auto-rows-[260px] md:grid-cols-4 md:gap-5">
+          <div className="grid gap-4 sm:grid-cols-2 md:auto-rows-[270px] md:grid-cols-4 md:gap-5">
             {galleryImages.map((image, index) => (
               <div
                 key={image.src}
-                className={`group relative overflow-hidden rounded-[1.7rem] border-4 border-white bg-white shadow-xl shadow-[#f8abc1]/30 md:rounded-[2rem] ${image.className}`}
+                className={`group relative overflow-hidden rounded-[2rem] border-[6px] border-white bg-white shadow-2xl shadow-[#e9447c]/15 transition duration-300 hover:-translate-y-1 md:rounded-[2.3rem] ${image.className}`}
               >
                 <Image
                   src={image.src}
@@ -503,17 +593,17 @@ export default function Home() {
                   className={`${image.imageClassName} w-full object-cover transition duration-700 group-hover:scale-110`}
                 />
 
-                <div className="absolute inset-0 bg-gradient-to-t from-[#5b2f3f]/45 via-[#d85d84]/10 to-transparent opacity-70" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#64213b]/55 via-[#e9447c]/10 to-transparent opacity-80" />
 
-                <div className="absolute left-4 top-4 rounded-full bg-white/85 px-3.5 py-1.5 text-xs font-semibold text-[#b84c6f] shadow-sm backdrop-blur md:left-5 md:top-5 md:px-4 md:py-2 md:text-sm">
+                <div className="absolute left-4 top-4 rounded-full bg-white/85 px-4 py-2 text-xs font-bold text-[#c83468] shadow-sm backdrop-blur">
                   ♡ {String(index + 1).padStart(2, "0")}
                 </div>
 
-                <div className="absolute bottom-4 left-4 right-4 rounded-2xl bg-white/82 p-3 text-left shadow-sm backdrop-blur md:bottom-5 md:left-5 md:right-5 md:p-4">
-                  <p className="text-sm font-semibold text-[#b84c6f]">
+                <div className="absolute bottom-4 left-4 right-4 rounded-2xl border border-white/40 bg-white/80 p-4 text-left shadow-sm backdrop-blur">
+                  <p className="text-sm font-black text-[#64213b]">
                     {image.title}
                   </p>
-                  <p className="mt-1 text-xs text-[#7d4a5d]">
+                  <p className="mt-1 text-xs font-semibold text-[#8b4a62]">
                     Kalvin & Naeya
                   </p>
                 </div>
@@ -521,12 +611,14 @@ export default function Home() {
             ))}
           </div>
 
-          <div className="mx-auto mt-10 max-w-2xl rounded-[1.7rem] border border-[#ffd2e1] bg-white/70 p-5 shadow-lg shadow-[#f8abc1]/25 backdrop-blur md:mt-12 md:rounded-[2rem] md:p-6">
-            <p className="text-base font-semibold leading-relaxed text-[#653246] md:text-lg">
+          <div className="mx-auto mt-10 max-w-2xl rounded-[2rem] border border-white/70 bg-white/70 p-6 shadow-2xl shadow-[#e9447c]/10 backdrop-blur-xl">
+            <p className="text-base font-bold leading-relaxed text-[#64213b] md:text-lg">
               “Cinta bukan tentang siapa yang datang lebih dulu, tetapi tentang
               siapa yang tetap tinggal dan saling memilih.”
             </p>
-            <p className="mt-3 text-sm text-[#b84c6f]">Kalvin & Naeya ♡</p>
+            <p className="mt-3 text-sm font-bold text-[#c83468]">
+              Kalvin & Naeya ♡
+            </p>
           </div>
         </div>
       </section>
